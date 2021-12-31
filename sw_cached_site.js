@@ -31,6 +31,7 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', (e) => {
     console.log('Service Worker : Fetching ');
     e.respondWith(
+
         fetch(e.request).then((res) => {
             // Make copy/clone of response 
             const resClone = res.clone();
@@ -42,7 +43,7 @@ self.addEventListener('fetch', (e) => {
             return res;
         }).catch(err => {
             console.log("Inside Error ")
-            caches.match(e.request).then((res) => res)
+            return caches.match(e.request).then((res) => res)
         })
     )
 })
