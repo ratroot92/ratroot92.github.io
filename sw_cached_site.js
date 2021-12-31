@@ -10,19 +10,19 @@ self.addEventListener('install', (e) => {
 
 self.addEventListener('activate', e => {
     console.log("Service Worker Activated ");
-    // Remove unwanted caches 
-    // e.waitUntil(
-    //     caches.keys().then(cacheNames => {
-    //         return Promise.all(
-    //             cacheNames.map(cache => {
-    //                 if (cache !== cacheName) {
-    //                     console.log("Service Worker : clearing old cache ")
-    //                     return caches.delete(cache)
-    //                 }
-    //             })
-    //         )
-    //     })
-    // )
+    // Remove unwanted caches
+    e.waitUntil(
+        caches.keys().then(cacheNames => {
+            return Promise.all(
+                cacheNames.map(cache => {
+                    if (cache !== cacheName) {
+                        console.log("Service Worker : clearing old cache ")
+                        return caches.delete(cache)
+                    }
+                })
+            )
+        })
+    )
 
 })
 
@@ -41,9 +41,6 @@ self.addEventListener('fetch', (e) => {
 
             })
             return res;
-        }).catch(err => {
-            console.log("Inside Error ")
-            return caches.match(e.request).then((res) => res)
-        })
+        }).catch(err => caches.match(e.request).then((res) => res))
     )
 })
