@@ -41,6 +41,7 @@ self.addEventListener('fetch', (e) => {
             })
             return res;
         }).catch(err => {
+            console.log("Inside Error ")
             caches.match(e.request).then((res) => res)
         })
     )
