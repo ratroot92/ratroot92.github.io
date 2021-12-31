@@ -2,7 +2,6 @@
 
 
 const cacheName = 'v2';
-const cacheAssets = ['index.html', 'main.js']
 
 self.addEventListener('install', (e) => {
     console.log("Service Worker Installed ==>")
